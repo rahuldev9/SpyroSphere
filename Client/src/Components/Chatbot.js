@@ -152,12 +152,12 @@ const Chatbot = ({ closeChat }) => {
             ))}
           </AnimatePresence>
 
-          {loading && (
-            <div className="relative">
+           {loading && (
+            
               <div className="absolute left-1 bottom-1 ">
                 <Loader />
               </div>
-            </div>
+            
           )}
 
           <div ref={messagesEndRef} />
