@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoMdClose } from "react-icons/io";
-import Loader from "./Loader";
 import { BsRobot } from "react-icons/bs";
+import Loader from "./Loader";
 
 const Chatbot = ({ closeChat }) => {
   const [message, setMessage] = useState("");
@@ -63,9 +63,9 @@ const Chatbot = ({ closeChat }) => {
         currentText += fullText[index];
         index++;
         setMessages((prev) => {
-          const prevWithoutTyping = prev.filter((m) => !m.typing);
+          const filtered = prev.filter((m) => !m.typing);
           return [
-            ...prevWithoutTyping,
+            ...filtered,
             {
               text: currentText,
               sender: "bot",
@@ -77,9 +77,9 @@ const Chatbot = ({ closeChat }) => {
       } else {
         clearInterval(interval);
         setMessages((prev) => {
-          const prevWithoutTyping = prev.filter((m) => !m.typing);
+          const filtered = prev.filter((m) => !m.typing);
           return [
-            ...prevWithoutTyping,
+            ...filtered,
             {
               text: fullText,
               sender: "bot",
@@ -103,12 +103,12 @@ const Chatbot = ({ closeChat }) => {
     new Date(t).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
   return (
-    <div className="fixed bottom-0 right-4 w-full max-w-[95%] sm:max-w-sm md:max-w-md lg:max-w-lg z-1000">
-      <div className="bg-white dark:bg-neutral-900 text-black dark:text-white p-4 rounded-2xl shadow-2xl flex flex-col space-y-4 h-[75vh] sm:h-[80vh] border border-neutral-300 dark:border-neutral-700">
+    <div className="fixed bottom-0 right-4 w-[95%] sm:w-[90%] md:w-[400px] lg:w-[500px] max-w-full z-50">
+      <div className="bg-white dark:bg-neutral-900 text-black dark:text-white p-4 rounded-2xl shadow-2xl flex flex-col space-y-4 max-h-[90vh] h-[75vh] border border-neutral-300 dark:border-neutral-700">
         {/* Header */}
         <div className="relative flex items-center justify-center space-x-2 text-xl font-bold border-b border-neutral-300 dark:border-neutral-700 pb-3">
           <span>SpyroSphere</span>
-          <BsRobot size={30} />
+          <BsRobot className="w-6 h-6 flex-shrink-0" />
           <button
             onClick={() => closeChat(true)}
             className="absolute top-1 right-2 text-2xl text-gray-500 hover:text-gray-700 transition-colors"
@@ -118,8 +118,8 @@ const Chatbot = ({ closeChat }) => {
           </button>
         </div>
 
-        {/* Messages container with fixed half screen height */}
-        <div className="h-[50vh] overflow-y-auto px-2 space-y-3 bg-gray-50 dark:bg-neutral-800 rounded-lg scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-transparent">
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-2 space-y-3 bg-gray-50 dark:bg-neutral-800 rounded-lg scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-transparent">
           <AnimatePresence initial={false}>
             {messages.map((msg, i) => (
               <motion.div
@@ -131,10 +131,12 @@ const Chatbot = ({ closeChat }) => {
                   msg.sender === "user" ? "justify-end" : "justify-start"
                 }`}
               >
-                <div className="flex items-end space-x-2">
-                  {msg.sender === "bot" && <BsRobot size={25} />}
+                <div className="flex items-end space-x-2 max-w-[80%] sm:max-w-[70%] md:max-w-[60%]">
+                  {msg.sender === "bot" && (
+                    <BsRobot className="w-6 h-6 flex-shrink-0" />
+                  )}
                   <div
-                    className={`rounded-2xl px-4 py-2 text-sm max-w-xs break-words ${
+                    className={`rounded-2xl px-4 py-2 text-sm break-words ${
                       msg.sender === "user"
                         ? "bg-black text-white"
                         : "bg-gray-200 dark:bg-neutral-700 text-black dark:text-white"
@@ -152,18 +154,18 @@ const Chatbot = ({ closeChat }) => {
             ))}
           </AnimatePresence>
 
-           {loading && (
-            
-              <div className="absolute left-1 bottom-1 ">
+          {loading && (
+            <div className="relative">
+              <div className="absolute left-1 bottom-1">
                 <Loader />
               </div>
-            
+            </div>
           )}
 
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input area */}
+        {/* Input */}
         <div className="group flex items-center px-4 py-2 rounded-xl border border-neutral-300 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-900 focus-within:ring-2 focus-within:ring-blue-500">
           <textarea
             ref={textareaRef}
@@ -172,7 +174,7 @@ const Chatbot = ({ closeChat }) => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyPress}
-            className="flex-1 resize-none bg-transparent outline-none border-none pl-2 text-black dark:text-white placeholder-gray-400 dark:placeholder-neutral-500"
+            className="flex-1 resize-none bg-transparent outline-none border-none pl-2 text-sm sm:text-base text-black dark:text-white placeholder-gray-400 dark:placeholder-neutral-500"
           />
           <button
             onClick={sendMessage}
