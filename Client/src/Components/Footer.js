@@ -18,8 +18,8 @@ const Footer = () => {
           <h2 className="text-xl font-semibold mb-2">Contact</h2>
           <div className="flex space-x-4 text-gray-400">
             <a href="rahulmudavath333@gmail.com" className="hover:text-white"><FaEnvelope size={20} /></a>
-            <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer" className="hover:text-white"><FaGithub size={20} /></a>
-            <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" className="hover:text-white"><FaLinkedin size={20} /></a>
+            <a href="https://github.com/rahuldev9/SpyroSphere" target="_blank" rel="noopener noreferrer" className="hover:text-white"><FaGithub size={20} /></a>
+            <a href="https://www.linkedin.com/in/rahul-mudavath-848978301/" target="_blank" rel="noopener noreferrer" className="hover:text-white"><FaLinkedin size={20} /></a>
           </div>
           <p className="text-xs text-gray-500 mt-4">© {new Date().getFullYear()} SpyroSphere Project</p>
         </div>
