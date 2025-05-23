@@ -48,7 +48,7 @@ const Team = () => {
         className="w-full md:w-1/2 flex justify-center"
       >
         <img
-          src="Team.png"
+          src="team.png"
           alt="SpyroSphere Robot"
           className="w-5/6 max-w-md h-auto "
         />
