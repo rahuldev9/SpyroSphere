@@ -47,9 +47,10 @@ const Chatbot = ({ closeChat }) => {
         message,
         previous: previousBotMessage?.text || "",
       });
-      animateBotMessage(res.data.reply);
       setLoading(false);
+      animateBotMessage(res.data.reply);
     } catch (err) {
+      setLoading(false);
       animateBotMessage("Oops! Something went wrong.");
     }
   };
